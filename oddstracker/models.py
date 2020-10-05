@@ -61,10 +61,10 @@ class Odds(models.Model):
         TOTALS = 'TOTALS', _('totals')
 
     id = models.AutoField(primary_key=True)
-    game = models.ForeignKey(Game, models.CASCADE)
+    game = models.ForeignKey(Game, related_name="odds", on_delete=models.CASCADE)
     time_recorded = models.DateTimeField(auto_now=False)
     source = models.ForeignKey(OddsSource, models.CASCADE)
     mkt_type = models.CharField(choices=MktTypeEnum.choices, max_length=100)
-    team_a_value = models.IntegerField
-    team_b_value = models.IntegerField
+    team_a_value = models.IntegerField()
+    team_b_value = models.IntegerField()
     addl_value = models.IntegerField(blank=True, null=True)

@@ -7,14 +7,21 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 from oddstracker.models import Game
-from datetime import datetime
 import json
+from pprint import pprint
+
 
 class GameTests(APITestCase):
     sports_data = {'name': 'Football'}
     regions_data = {'name': 'US'}
     leagues_data = {'name': 'NFL'}
+    source_data_1 = {'name': 'Caesars'}
+    source_data_2 = {'name': 'DraftKings'}
     now = '2020-10-05T18:37:00.744747Z'
+
+    odds_data_1 = {'game':1, 'time_recorded':now, 'source': 1, 'mkt_type':'H2H', 'team_a_value': 150, 'team_b_value': -150}
+    odds_data_2 = {'game':1, 'time_recorded':now, 'source': 2, 'mkt_type':'H2H', 'team_a_value': 150, 'team_b_value': -150}
+
     game_data = {
         'team_a': 'Washington Football Team',
         'team_b': 'Dallas Cowboys',
@@ -27,6 +34,8 @@ class GameTests(APITestCase):
     sports_url = reverse('sports-list')
     regions_url = reverse('regions-list')
     leagues_url = reverse('leagues-list')
+    sources_url = reverse('sources-list')
+    odds_url = reverse('odds-list')
 
     def setup(self):
         """
@@ -35,6 +44,9 @@ class GameTests(APITestCase):
         self.client.post(self.sports_url, self.sports_data, format='json')
         self.client.post(self.regions_url, self.regions_data, format='json')
         self.client.post(self.leagues_url, self.leagues_data, format='json')
+        self.client.post(self.sources_url, self.source_data_1, format='json')
+        self.client.post(self.sources_url, self.source_data_2, format='json')
+
 
     def test_create_game(self):
         """
@@ -77,3 +89,16 @@ class GameTests(APITestCase):
                              'league': 1
                          }
                          )
+
+    def test_get_game_with_odds(self):
+        self.setup()
+        url = reverse('games-list')
+        self.client.post(url, data=self.game_data, format='json')
+        self.client.post(self.odds_url, self.odds_data_1, format='json')
+        self.client.post(self.odds_url, self.odds_data_2, format='json')
+        response = self.client.get(f'{url}/1/odds', format='json')
+
+        formatted_response = json.loads(response.content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(formatted_response[0]['odds']), 2)
+

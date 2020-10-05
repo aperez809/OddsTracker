@@ -22,12 +22,22 @@ class OddsSourceSerializer(serializers.ModelSerializer):
         model = OddsSource
         fields = ['id', 'name']
 
+
+class OddsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Odds
+        fields = ['id', 'game', 'time_recorded', 'source', 'mkt_type', 'team_a_value', 'team_b_value', 'addl_value']
+
+class GameOddsSerializer(serializers.ModelSerializer):
+    odds = OddsSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Game
+        fields = ['id', 'team_a', 'team_b', 'game_time', 'sport', 'region', 'league', 'odds']
+
+
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
         fields = ['id', 'team_a', 'team_b', 'game_time', 'sport', 'region', 'league']
-
-class OddsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Odds
-        fields = ['id', 'game', 'time_recorded', 'source', 'mkt_type', 'team_a_value', 'team_b_value', 'addl_value']

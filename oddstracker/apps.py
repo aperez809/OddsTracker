@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class BettingoddsConfig(AppConfig):
+class OddsTrackerConfig(AppConfig):
     name = 'oddstracker'

@@ -13,37 +13,59 @@ class GameDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
 
+class GameOddsDetail(generics.ListCreateAPIView):
+    queryset = Game.objects.all()
+    serializer_class = GameOddsSerializer
+
 
 
 # ----------------Sport Views-------------------- #
 class SportList(generics.ListCreateAPIView):
-    queryset = Game.objects.all()
+    queryset = Sport.objects.all()
     serializer_class = SportSerializer
 
 class SportDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Game.objects.all()
+    queryset = Sport.objects.all()
     serializer_class = SportSerializer
 
 
 
 # ----------------Region Views-------------------- #
 class RegionList(generics.ListCreateAPIView):
-    queryset = Game.objects.all()
+    queryset = Region.objects.all()
     serializer_class = RegionSerializer
 
 
 class RegionDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Game.objects.all()
+    queryset = Region.objects.all()
     serializer_class = RegionSerializer
 
 
 
 # ----------------League Views-------------------- #
 class LeagueList(generics.ListCreateAPIView):
-    queryset = Game.objects.all()
+    queryset = League.objects.all()
     serializer_class = LeagueSerializer
-
 
 class LeagueDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Game.objects.all()
+    queryset = League.objects.all()
     serializer_class = LeagueSerializer
+
+# ----------------Sources Views-------------------- #
+class OddsSourceList(generics.ListCreateAPIView):
+    queryset = OddsSource.objects.all()
+    serializer_class = OddsSourceSerializer
+
+class OddsSourceDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = OddsSource.objects.all()
+    serializer_class = OddsSourceSerializer
+
+# ----------------Odds Views-------------------- #
+class OddsList(generics.ListCreateAPIView):
+    queryset = Odds.objects.all()
+    serializer_class = OddsSerializer
+
+class OddsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Odds.objects.all()
+    serializer_class = OddsSerializer
+

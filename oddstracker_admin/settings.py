@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'oddstracker.apps.BettingoddsConfig',
+    'oddstracker.apps.OddsTrackerConfig',
     'rest_framework',
 ]
 
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'odds.urls'
+ROOT_URLCONF = 'oddstracker_admin.urls'
 
 TEMPLATES = [
     {

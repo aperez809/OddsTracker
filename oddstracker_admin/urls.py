@@ -23,12 +23,16 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/games', views.GameList.as_view(), name="games-list"),
     path('api/games/<int:pk>', views.GameDetail.as_view(), name="games-detail"),
+    path('api/games/<int:pk>/odds', views.GameOddsDetail.as_view(), name="games-odds-detail"),
     path('api/sports', views.SportList.as_view(), name="sports-list"),
     path('api/sports/<int:pk>', views.SportDetail.as_view(), name="sports-detail"),
     path('api/regions', views.RegionList.as_view(), name="regions-list"),
     path('api/regions/<int:pk>', views.RegionDetail.as_view(), name="regions-detail"),
     path('api/leagues', views.LeagueList.as_view(), name="leagues-list"),
     path('api/leagues/<int:pk>', views.LeagueDetail.as_view(), name="leagues-detail"),
+    path('api/sources', views.OddsSourceList.as_view(), name="sources-list"),
+    path('api/sources/<int:pk>', views.OddsSourceDetail.as_view(), name="sources-detail"),
+    path('api/odds', views.OddsList.as_view(), name="odds-list"),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

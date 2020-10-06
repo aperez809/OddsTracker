@@ -5,7 +5,6 @@ phases:
   build:
     commands:
       - echo build Docker image on `date`
-      - cd src
       - docker build -t oddstracker:latest .
       - docker tag oddstracker:latest aperez809/oddstracker:latest
   post_build:

@@ -15,4 +15,5 @@ phases:
   post_build:
     commands:
       - echo build Docker image complete `date`
+      - docker login -u aperez809 -p @P_090596
       - docker push aperez809/oddstracker:latest

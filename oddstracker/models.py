@@ -1,12 +1,15 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+
 class League(models.Model):
     class Meta:
         app_label = 'oddstracker'
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Sport(models.Model):
@@ -15,6 +18,8 @@ class Sport(models.Model):
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Region(models.Model):
@@ -29,6 +34,8 @@ class Region(models.Model):
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(choices=RegionEnum.choices, max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class OddsSource(models.Model):
     class Meta:
@@ -36,6 +43,8 @@ class OddsSource(models.Model):
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class Game(models.Model):
     class Meta:
@@ -49,6 +58,8 @@ class Game(models.Model):
     sport = models.ForeignKey(Sport, models.CASCADE)
     region = models.ForeignKey(Region, models.CASCADE)
     league = models.ForeignKey(League, models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Odds(models.Model):
@@ -68,3 +79,5 @@ class Odds(models.Model):
     team_a_value = models.IntegerField()
     team_b_value = models.IntegerField()
     addl_value = models.IntegerField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'oddstracker_admin.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dev-db',
+        'USER': 'alexperez',
+        'PASSWORD': 'Ym7WZNAJiTNH',
+        'HOST': 'dev-db.ctjllyfnwkdl.us-east-2.rds.amazonaws.com',
+        'PORT': 5432,
     }
 }
 

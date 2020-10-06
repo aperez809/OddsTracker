@@ -1,0 +1,14 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+  build:
+    commands:
+      - echo build Docker image on `date`
+      - cd src
+      - docker build -t oddstracker:latest .
+      - docker tag oddstracker:latest aperez809/oddstracker:latest
+  post_build:
+    commands:
+      - echo build Docker image complete `date`
+      - docker push aperez809/oddstracker:latest

@@ -17,7 +17,7 @@ phases:
       - echo build Docker image complete `date`
       - docker login -u aperez809 -p @P_090596
       - docker push aperez809/oddstracker:latest
-  artifacts:
-    files:
-      - '**/*'
-    name: 'BuildArtifact'
+artifacts:
+  files:
+    - '**/*'
+  name: 'BuildArtifact'

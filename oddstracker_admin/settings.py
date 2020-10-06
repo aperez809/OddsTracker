@@ -26,7 +26,7 @@ SECRET_KEY = '7^&exvy6ald9b3pm8x@xejf!y+bl444x*!naw++^blgd*y6!zd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['oddstracker-env.eba-tjfu7yri.us-east-2.elasticbeanstalk.com']
 
 
 # Application definition

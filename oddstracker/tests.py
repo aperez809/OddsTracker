@@ -100,5 +100,6 @@ class GameTests(APITestCase):
 
         formatted_response = json.loads(response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(formatted_response[0]['odds']), 2)
+        self.assertIsNotNone(formatted_response)
+        self.assertEqual(len(formatted_response['odds']), 2)
 

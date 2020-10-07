@@ -1,7 +1,6 @@
-from django.shortcuts import render
-from oddstracker.models import Game
 from .serializers import *
 from rest_framework import generics
+
 
 
 # ----------------Game Views-------------------- #
@@ -18,6 +17,13 @@ class GameDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Game.objects.all()
     serializer_class = GameSerializer
+
+class GameOddsList(generics.ListCreateAPIView):
+    """
+    View for listing or creating Games and Odds.
+    """
+    queryset = Game.objects.all()
+    serializer_class = GameOddsSerializer
 
 class GameOddsDetail(generics.RetrieveAPIView):
     """

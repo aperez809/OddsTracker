@@ -26,7 +26,7 @@ SECRET_KEY = '7^&exvy6ald9b3pm8x@xejf!y+bl444x*!naw++^blgd*y6!zd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['oddstracker-env.eba-tjfu7yri.us-east-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['oddstracker-env.eba-tjfu7yri.us-east-2.elasticbeanstalk.com', "*"]
 
 
 # Application definition
@@ -54,6 +54,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'oddstracker_admin.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -77,13 +78,24 @@ WSGI_APPLICATION = 'oddstracker_admin.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'dev-db',
+#         'USER': 'alexperez',
+#         'PASSWORD': 'Ym7WZNAJiTNH',
+#         'HOST': 'dev-db.ctjllyfnwkdl.us-east-2.rds.amazonaws.com',
+#         'PORT': 5432,
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dev-db',
-        'USER': 'alexperez',
-        'PASSWORD': 'Ym7WZNAJiTNH',
-        'HOST': 'dev-db.ctjllyfnwkdl.us-east-2.rds.amazonaws.com',
+        'NAME': 'OddsTracker',
+        'USER': 'postgres',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
         'PORT': 5432,
     }
 }

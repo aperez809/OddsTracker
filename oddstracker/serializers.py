@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from oddstracker.models import *
+from rest_framework.validators import UniqueTogetherValidator
+
 
 class LeagueSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,3 +43,9 @@ class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
         fields = ['id', 'team_a', 'team_b', 'game_time', 'sport', 'region', 'league']
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Game.objects.all(),
+                fields=['team_a', 'team_b', 'game_time', 'sport', 'region', 'league']
+            )
+        ]

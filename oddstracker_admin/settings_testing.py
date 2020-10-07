@@ -81,17 +81,6 @@ WSGI_APPLICATION = 'oddstracker_admin.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dev-db',
-        'USER': 'alexperez',
-        'PASSWORD': 'Ym7WZNAJiTNH',
-        'HOST': 'dev-db.ctjllyfnwkdl.us-east-2.rds.amazonaws.com',
-        'PORT': 5432,
-    }
-}
-
-TEST_DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'OddsTracker',
         'USER': 'postgres',
         'PASSWORD': 'root',
@@ -99,7 +88,6 @@ TEST_DATABASES = {
         'PORT': 5432,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

@@ -3,3 +3,10 @@
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# IDE-specific files
+.vscode
+.vscode/*
+.idea
+.idea/*
+

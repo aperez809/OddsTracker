@@ -1,17 +1,18 @@
+from typing import Dict
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from datetime import datetime
 
 class League(models.Model):
     class Meta:
         app_label = 'oddstracker'
 
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    id: int = models.AutoField(primary_key=True)
+    name: str = models.CharField(max_length=100)
+    created_at: datetime = models.DateTimeField(auto_now_add=True)
+    updated_at: datetime = models.DateTimeField(auto_now=True)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         ret = self.__dict__
         ret.pop('_state')
         return str(ret)
@@ -20,12 +21,12 @@ class Sport(models.Model):
     class Meta:
         app_label = 'oddstracker'
 
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    id: int = models.AutoField(primary_key=True)
+    name: str = models.CharField(max_length=100)
+    created_at: datetime = models.DateTimeField(auto_now_add=True)
+    updated_at: datetime = models.DateTimeField(auto_now=True)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         ret = self.__dict__
         ret.pop('_state')
         return str(ret)
@@ -41,10 +42,10 @@ class Region(models.Model):
         AU = 'AU', _('au')
         EU = 'EU', _('eu')
 
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(choices=RegionEnum.choices, max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    id: int = models.AutoField(primary_key=True)
+    name: RegionEnum = models.CharField(choices=RegionEnum.choices, max_length=100)
+    created_at: datetime = models.DateTimeField(auto_now_add=True)
+    updated_at: datetime = models.DateTimeField(auto_now=True)
 
     def __repr__(self):
         ret = self.__dict__
@@ -55,12 +56,12 @@ class OddsSource(models.Model):
     class Meta:
         app_label = 'oddstracker'
 
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    id: int = models.AutoField(primary_key=True)
+    name: str = models.CharField(max_length=100)
+    created_at: datetime = models.DateTimeField(auto_now_add=True)
+    updated_at: datetime = models.DateTimeField(auto_now=True)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         ret = self.__dict__
         ret.pop('_state')
         return str(ret)
@@ -70,17 +71,17 @@ class Game(models.Model):
         app_label = 'oddstracker'
     # Represents a sports game to be played
 
-    id = models.AutoField(primary_key=True)
-    team_a = models.CharField(max_length=100)
-    team_b = models.CharField(max_length=100)
-    game_time = models.DateTimeField(auto_now=False)
-    sport = models.ForeignKey(Sport, models.CASCADE)
-    region = models.ForeignKey(Region, models.CASCADE)
-    league = models.ForeignKey(League, models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    id: int = models.AutoField(primary_key=True)
+    team_a: str = models.CharField(max_length=100)
+    team_b: str = models.CharField(max_length=100)
+    game_time: datetime = models.DateTimeField(auto_now=False)
+    sport: Sport = models.ForeignKey(Sport, models.CASCADE)
+    region: Region = models.ForeignKey(Region, models.CASCADE)
+    league: League = models.ForeignKey(League, models.CASCADE)
+    created_at: datetime = models.DateTimeField(auto_now_add=True)
+    updated_at: datetime = models.DateTimeField(auto_now=True)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         ret = self.__dict__
         ret.pop('_state')
         return str(ret)
@@ -96,18 +97,18 @@ class Odds(models.Model):
         SPREAD = 'SPREAD', _('spread')
         TOTALS = 'TOTALS', _('totals')
 
-    id = models.AutoField(primary_key=True)
-    game = models.ForeignKey(Game, related_name="odds", on_delete=models.CASCADE)
-    time_recorded = models.DateTimeField(auto_now=False)
-    source = models.ForeignKey(OddsSource, models.CASCADE)
-    mkt_type = models.CharField(choices=MktTypeEnum.choices, max_length=100)
-    team_a_value = models.IntegerField()
-    team_b_value = models.IntegerField()
-    addl_value = models.IntegerField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    id: int = models.AutoField(primary_key=True)
+    game: Game = models.ForeignKey(Game, related_name="odds", on_delete=models.CASCADE)
+    time_recorded: datetime = models.DateTimeField(auto_now=False)
+    source: datetime = models.ForeignKey(OddsSource, models.CASCADE)
+    mkt_type: MktTypeEnum = models.CharField(choices=MktTypeEnum.choices, max_length=100)
+    team_a_value: int = models.IntegerField()
+    team_b_value: int = models.IntegerField()
+    addl_value: int = models.IntegerField(blank=True, null=True)
+    created_at: datetime = models.DateTimeField(auto_now_add=True)
+    updated_at: datetime = models.DateTimeField(auto_now=True)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         ret = self.__dict__
         ret.pop('_state')
         return str(ret)

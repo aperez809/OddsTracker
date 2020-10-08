@@ -11,6 +11,10 @@ class League(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __repr__(self):
+        ret = self.__dict__
+        ret.pop('_state')
+        return str(ret)
 
 class Sport(models.Model):
     class Meta:
@@ -20,6 +24,11 @@ class Sport(models.Model):
     name = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __repr__(self):
+        ret = self.__dict__
+        ret.pop('_state')
+        return str(ret)
 
 
 class Region(models.Model):
@@ -37,6 +46,11 @@ class Region(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __repr__(self):
+        ret = self.__dict__
+        ret.pop('_state')
+        return str(ret)
+
 class OddsSource(models.Model):
     class Meta:
         app_label = 'oddstracker'
@@ -45,6 +59,11 @@ class OddsSource(models.Model):
     name = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __repr__(self):
+        ret = self.__dict__
+        ret.pop('_state')
+        return str(ret)
 
 class Game(models.Model):
     class Meta:
@@ -61,6 +80,11 @@ class Game(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __repr__(self):
+        ret = self.__dict__
+        ret.pop('_state')
+        return str(ret)
+
 
 class Odds(models.Model):
     class Meta:
@@ -68,6 +92,7 @@ class Odds(models.Model):
 
     class MktTypeEnum(models.TextChoices):
         H2H = 'H2H', _('h2h')
+        H2H_LAY = 'H2H_LAY', _('h2h_lay')
         SPREAD = 'SPREAD', _('spread')
         TOTALS = 'TOTALS', _('totals')
 
@@ -81,3 +106,8 @@ class Odds(models.Model):
     addl_value = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __repr__(self):
+        ret = self.__dict__
+        ret.pop('_state')
+        return str(ret)

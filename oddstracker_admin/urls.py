@@ -33,7 +33,7 @@ urlpatterns = [
     path('api/sources', views.OddsSourceList.as_view(), name="sources-list"),
     path('api/sources/<int:pk>', views.OddsSourceDetail.as_view(), name="sources-detail"),
     path('api/odds', views.OddsList.as_view(), name="odds-list"),
-    path('api/game-odds', views.GameOddsList.as_view, name="game-odds")
+    path('api/game-odds', views.GameOddsList.as_view(), name="game-odds")
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

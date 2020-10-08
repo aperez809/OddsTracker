@@ -80,11 +80,10 @@ WSGI_APPLICATION = 'oddstracker_admin.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'OddsTracker',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
+        'HOST': 'dev-db',
         'PORT': 5432,
     }
 }

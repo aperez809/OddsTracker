@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'oddstracker_admin.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'dev-db',
         'USER': 'alexperez',
         'PASSWORD': 'Ym7WZNAJiTNH',

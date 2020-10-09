@@ -15,4 +15,4 @@ RUN pip install pipenv
 COPY Pipfile Pipfile.lock /odds/
 RUN pipenv install --system
 
-CMD ["python", "./manage.py", "runserver", "0.0.0.0:8000", "--settings=oddstracker_admin.settings_testing"]
+CMD ["python", "./manage.py", "runserver", "0.0.0.0:8000"]

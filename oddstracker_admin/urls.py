@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/games', views.GameList.as_view(), name="games-list"),
     path('api/games/<int:pk>', views.GameDetail.as_view(), name="games-detail"),
-    path('api/games/<int:pk>/odds', views.GameOddsDetail.as_view(), name="games-odds-detail"),
+    path('api/games/<int:pk>/odds', views.GameOddsDetail.as_view(), name="gameodds-detail"),
     path('api/sports', views.SportList.as_view(), name="sports-list"),
     path('api/sports/<int:pk>', views.SportDetail.as_view(), name="sports-detail"),
     path('api/regions', views.RegionList.as_view(), name="regions-list"),

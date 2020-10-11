@@ -9,7 +9,7 @@ services:
       - postgres_data:/var/lib/postgresql/data/
   web:
     build: .
-    command: python /odds/manage.py runserver 0.0.0.0:8000 --settings=oddstracker_admin.settings_testing
+    command: python /odds/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/odds
     ports:

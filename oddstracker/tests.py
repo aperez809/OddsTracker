@@ -117,7 +117,7 @@ class GameOddsTests(APITestCase):
         """
         Ensures a game and its associated odds can be retrieved
         """
-        gameodds_retrieve_url = reverse("games-odds-detail", args=[1])
+        gameodds_retrieve_url = reverse("gameodds-detail", args=[1])
         response = self.client.get(gameodds_retrieve_url, format="json")
         fmt_res = json.loads(response.content)
 

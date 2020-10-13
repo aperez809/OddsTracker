@@ -4,6 +4,9 @@ import json
 from pprint import pprint
 from rest_framework import status
 from django.http import JsonResponse
+from datetime import datetime, timedelta
+from django.utils import timezone
+
 
 
 # ----------------Game Views-------------------- #
@@ -13,6 +16,21 @@ class GameList(generics.ListCreateAPIView):
     """
     queryset = Game.objects.all()
     serializer_class = GameSerializer
+
+    def get_queryset(self):
+        """
+        Returns standard QuerySet unless `upcoming` flag is specified.
+        If specified, only returns games happening in the next 7 days.
+        """
+        qs = super().get_queryset()
+        only_upcoming = str(self.request.query_params.get('upcoming')).lower()
+        if only_upcoming in ['true', '1']:
+            start_date = datetime.today()
+            # Captures games taking place today and 7 days from now
+            # Hours set to 24 - hour of start_date to capture any missing data from 7th day 
+            end_date = start_date + timedelta(days=6, hours=24-start_date.hour)
+            return qs.filter(game_time__range=[start_date, end_date])
+        return qs
 
 class GameDetail(generics.RetrieveUpdateDestroyAPIView):
     """
@@ -36,6 +54,9 @@ class GameOddsList(generics.ListCreateAPIView):
         sport, _ = Sport.objects.get_or_create(name=fmt_req['sport'])
         region, _ = Region.objects.get_or_create(name=fmt_req['region'])
         league, _ = League.objects.get_or_create(name=fmt_req['league'])
+
+        fmt_time = datetime.isoformat(fmt_req['game_time'])
+        fmt_time = timezone.make_aware(fmt_time, timezone.utc)
 
         game, _ = Game.objects.get_or_create(
             team_a=fmt_req['team_a'],

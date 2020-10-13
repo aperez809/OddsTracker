@@ -14,14 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from rest_framework.urlpatterns import format_suffix_patterns
 from oddstracker import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/games', views.GameList.as_view(), name="games-list"),
+    path('api/games/', views.GameList.as_view(), name="games-list"),
+    re_path(r'^api/games/$', views.GameList.as_view(), name="games-list"),
     path('api/games/<int:pk>', views.GameDetail.as_view(), name="games-detail"),
     path('api/games/<int:pk>/odds', views.GameOddsDetail.as_view(), name="gameodds-detail"),
     path('api/sports', views.SportList.as_view(), name="sports-list"),

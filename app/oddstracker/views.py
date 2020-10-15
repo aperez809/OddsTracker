@@ -1,3 +1,4 @@
+from logging import log
 from .serializers import *
 from rest_framework import generics
 import json
@@ -6,6 +7,10 @@ from rest_framework import status
 from django.http import JsonResponse
 from datetime import datetime, timedelta
 from django.utils import timezone
+
+import logging
+logger = logging.getLogger(__name__)
+
 
 
 
@@ -47,7 +52,7 @@ class GameOddsList(generics.ListCreateAPIView):
     serializer_class = GameOddsSerializer
 
     def create(self, request, *args, **kwargs):
-        fmt_req = json.loads(request.data)
+        fmt_req = request.data
 
         # Using throwaway variable because `get_or_create()` returns a 2-tuple
         # where the second value is where or not the object was created
@@ -55,7 +60,7 @@ class GameOddsList(generics.ListCreateAPIView):
         region, _ = Region.objects.get_or_create(name=fmt_req['region'])
         league, _ = League.objects.get_or_create(name=fmt_req['league'])
 
-        fmt_time = datetime.isoformat(fmt_req['game_time'])
+        fmt_time = datetime.strptime(fmt_req['game_time'], r"%Y-%m-%d %H:%M:%S")
         fmt_time = timezone.make_aware(fmt_time, timezone.utc)
 
         game, _ = Game.objects.get_or_create(
@@ -74,12 +79,15 @@ class GameOddsList(generics.ListCreateAPIView):
 
     def add_odds_to_set(self, game, odds):
         for elem in odds:
+            fmt_time = datetime.strptime(elem['time_recorded'], r"%Y-%m-%d %H:%M:%S")
+            fmt_time = timezone.make_aware(fmt_time, timezone.utc)
+
             source, _ = OddsSource.objects.get_or_create(name=elem['source'])
             game.odds.create(
                 team_a_value=elem['team_a_value'],
                 team_b_value=elem['team_b_value'],
                 addl_value=elem['addl_value'],
-                time_recorded=elem['time_recorded'],
+                time_recorded=fmt_time,
                 source=source,
                 mkt_type=elem['mkt_type']
             )

@@ -5,30 +5,21 @@ services:
     build:
       context: ./app
       dockerfile: Dockerfile.prod
+    image: 013206471204.dkr.ecr.us-east-2.amazonaws.com/oddstracker-repo:web
     command: gunicorn oddstracker_admin.wsgi:application --bind 0.0.0.0:8000
-    volumes:
-      - static_volume:/home/app/web/staticfiles
     expose:
       - 8000
     env_file:
       - .env.staging
-    depends_on:
-      - db
-  db:
-    image: postgres:12.0-alpine
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    env_file:
-      - .env.staging.db
   nginx-proxy:
     container_name: nginx-proxy
     build: nginx
+    image: 013206471204.dkr.ecr.us-east-2.amazonaws.com/oddstracker-repo:nginx-proxy
     restart: always
     ports:
       - 443:443
       - 80:80
     volumes:
-      - static_volume:/home/app/web/staticfiles
       - certs:/etc/nginx/certs
       - html:/usr/share/nginx/html
       - vhost:/etc/nginx/vhost.d
@@ -48,8 +39,6 @@ services:
       - nginx-proxy
 
 volumes:
-  postgres_data:
-  static_volume:
   certs:
   html:
   vhost:

@@ -141,3 +141,23 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # To be used with LetsEncrypt
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+        'logfile': {
+            'level':'DEBUG',
+            'class':'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'root': {
+        'level': 'DEBUG',
+        'handlers': ['console', 'logfile']
+    },
+}

@@ -21,3 +21,7 @@ phases:
       - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:web
       - docker push $REPOSITORY_URI:nginx-proxy
+artifacts:
+  files:
+    - '**/*'
+  name: 'BuildArtifact'

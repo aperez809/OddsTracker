@@ -1,23 +1,23 @@
 version: 0.2
 phases:
-  install:
-    commands:
-    #   - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2
-    #   - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
-
   pre_build:
     commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - REPOSITORY_URI=013206471204.dkr.ecr.us-east-2.amazonaws.com/oddstracker-repo
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+
   build:
     commands:
-      - echo build Docker image on `date`
-      - docker build -t oddstracker:latest .
-      - docker tag oddstracker:latest aperez809/oddstracker:latest
+      - echo Build started on `date`
+      - echo Building Docker images...
+      - docker-compose -f docker-compose.prod.yml build
+
   post_build:
     commands:
-      - echo build Docker image complete `date`
-      - docker login -u aperez809 -p @P_090596
-      - docker push aperez809/oddstracker:latest
-artifacts:
-  files:
-    - '**/*'
-  name: 'BuildArtifact'
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:web
+      - docker push $REPOSITORY_URI:nginx-proxy

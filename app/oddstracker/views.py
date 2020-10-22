@@ -83,7 +83,9 @@ class GameOddsList(generics.ListCreateAPIView):
             fmt_time = timezone.make_aware(fmt_time, timezone.utc)
 
             source, _ = OddsSource.objects.get_or_create(name=elem['source'])
-            game.odds.create(
+
+            odds, _ = Odds.objects.get_or_create(
+                game=game,
                 team_a_value=elem['team_a_value'],
                 team_b_value=elem['team_b_value'],
                 addl_value=elem['addl_value'],

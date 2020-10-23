@@ -9,6 +9,7 @@ phases:
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
       - cp -r $CODEBUILD_SRC_DIR_secrets $CODEBUILD_SRC_DIR
+      - ls -a $CODEBUILD_SRC_DIR
 
   build:
     commands:

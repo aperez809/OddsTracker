@@ -1,4 +1,4 @@
 #!/bin/bash
 
-ls deployment-root
+cd /home/cd-Oddstracker
 docker-compose -f docker-compose.prod.yml up -d --build

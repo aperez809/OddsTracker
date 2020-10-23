@@ -4,3 +4,5 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/cd-Oddstracker/
+hooks:
+  - ApplicationStart: docker-compose -f /home/ubuntu/cd-Oddstracker/docker-compose.prod.yml --build -d

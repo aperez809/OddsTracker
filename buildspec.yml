@@ -8,7 +8,7 @@ phases:
       - REPOSITORY_URI=013206471204.dkr.ecr.us-east-2.amazonaws.com/oddstracker-repo
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
-      - cd CODEBUILD_SRC_DIR_secrets; cp . CODEBUILD_SRC_DIR;
+      - cp -r $CODEBUILD_SRC_DIR_secrets $CODEBUILD_SRC_DIR
 
   build:
     commands:

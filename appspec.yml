@@ -3,4 +3,4 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: ~/cd-Oddstracker
+    destination: /home/ubuntu/cd-Oddstracker/

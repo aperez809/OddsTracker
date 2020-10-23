@@ -6,4 +6,4 @@ files:
     destination: /home/ubuntu/cd-Oddstracker/
 hooks:
   ApplicationStart:
-    - location: scripts/app-start.sh
+    - location: app-start.sh

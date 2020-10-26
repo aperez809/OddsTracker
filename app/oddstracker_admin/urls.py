@@ -14,27 +14,68 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 from oddstracker import views
+from rest_framework.routers import SimpleRouter
+from rest_framework_nested import routers
+
+
+router = SimpleRouter()
+router.register('games', views.GameViewSet)
+
+odds_router = routers.NestedSimpleRouter(
+    router, 
+    r'games',
+    lookup='game'
+)
+odds_router.register(
+    'odds',
+    views.OddsViewSet,
+    basename='game-odds'
+)
+
+odds_router = routers.NestedSimpleRouter(
+    router, 
+    r'games',
+    lookup='game'
+)
+
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/games/', views.GameList.as_view(), name="games-list"),
-    re_path(r'^api/games/$', views.GameList.as_view(), name="games-list"),
-    path('api/games/<int:pk>', views.GameDetail.as_view(), name="games-detail"),
-    path('api/games/<int:pk>/odds', views.GameOddsDetail.as_view(), name="gameodds-detail"),
-    path('api/sports', views.SportList.as_view(), name="sports-list"),
-    path('api/sports/<int:pk>', views.SportDetail.as_view(), name="sports-detail"),
-    path('api/regions', views.RegionList.as_view(), name="regions-list"),
-    path('api/regions/<int:pk>', views.RegionDetail.as_view(), name="regions-detail"),
-    path('api/leagues', views.LeagueList.as_view(), name="leagues-list"),
-    path('api/leagues/<int:pk>', views.LeagueDetail.as_view(), name="leagues-detail"),
-    path('api/sources', views.OddsSourceList.as_view(), name="sources-list"),
-    path('api/sources/<int:pk>', views.OddsSourceDetail.as_view(), name="sources-detail"),
-    path('api/odds', views.OddsList.as_view(), name="odds-list"),
-    path('api/game-odds', views.GameOddsList.as_view(), name="game-odds")
+    re_path(r'^api/games/$', views.GameViewSet.as_view(), name="games-list"),
+    # path('api/games/<int:pk>', views.GameDetail.as_view(), name="games-detail"),
+    re_path(r'^api/games/<int:pk>/odds/$', views.GameOddsDetail.as_view(), name="gameodds-detail"),
+    # path('api/sports', views.SportList.as_view(), name="sports-list"),
+    # path('api/regions', views.RegionList.as_view(), name="regions-list"),
+    # path('api/regions/<int:pk>', views.RegionDetail.as_view(), name="regions-detail"),
+    # path('api/leagues', views.LeagueList.as_view(), name="leagues-list"),
+    # path('api/leagues/<int:pk>', views.LeagueDetail.as_view(), name="leagues-detail"),
+    # path('api/sources', views.OddsSourceList.as_view(), name="sources-list"),
+    # path('api/sources/<int:pk>', views.OddsSourceDetail.as_view(), name="sources-detail"),
+    # path('api/odds', views.OddsList.as_view(), name="odds-list"),
+    # path('api/game-odds', views.GameOddsList.as_view(), name="game-odds")
 ]
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('api/games/', views.GameList.as_view(), name="games-list"),
+#     re_path(r'^api/games/$', views.GameList.as_view(), name="games-list"),
+#     path('api/games/<int:pk>', views.GameDetail.as_view(), name="games-detail"),
+#     path('api/games/<int:pk>/odds', views.GameOddsDetail.as_view(), name="gameodds-detail"),
+#     path('api/sports', views.SportList.as_view(), name="sports-list"),
+#     path('api/sports/<int:pk>', views.SportDetail.as_view(), name="sports-detail"),
+#     path('api/regions', views.RegionList.as_view(), name="regions-list"),
+#     path('api/regions/<int:pk>', views.RegionDetail.as_view(), name="regions-detail"),
+#     path('api/leagues', views.LeagueList.as_view(), name="leagues-list"),
+#     path('api/leagues/<int:pk>', views.LeagueDetail.as_view(), name="leagues-detail"),
+#     path('api/sources', views.OddsSourceList.as_view(), name="sources-list"),
+#     path('api/sources/<int:pk>', views.OddsSourceDetail.as_view(), name="sources-detail"),
+#     path('api/odds', views.OddsList.as_view(), name="odds-list"),
+#     path('api/game-odds', views.GameOddsList.as_view(), name="game-odds")
+# ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

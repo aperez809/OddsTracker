@@ -13,6 +13,6 @@ fi
 
 python manage.py flush --no-input
 python manage.py migrate
-# python manage.py loaddata oddstracker/fixtures/Game_TestData.json
+python manage.py loaddata oddstracker/fixtures/Game_TestData.json
 
 exec "$@"

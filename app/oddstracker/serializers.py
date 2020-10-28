@@ -30,7 +30,7 @@ class OddsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Odds
-        fields = ['id', 'game', 'time_recorded', 'source', 'mkt_type', 'team_a_value', 'team_b_value', 'addl_value']
+        fields = ['id', 'game', 'time_recorded', 'source', 'mkt_type', 'team_a_value', 'team_b_value', 'addl_value', "source"]
 
 class GameOddsSerializer(serializers.ModelSerializer):
     odds = OddsSerializer(many=True, read_only=True)

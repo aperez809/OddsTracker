@@ -16,4 +16,5 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py loaddata oddstracker/fixtures/GameOdds_TestData.json
 
+
 exec "$@"

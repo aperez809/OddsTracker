@@ -1,24 +1,19 @@
 from logging import log
+
+from rest_framework import views
+
 from .serializers import *
-from rest_framework import generics
-import json
-from pprint import pprint
-from rest_framework import status
+from rest_framework import viewsets
 from django.http import JsonResponse
-from datetime import datetime, timedelta
 from django.utils import timezone
+from datetime import datetime, timedelta
+
 
 import logging
 logger = logging.getLogger(__name__)
 
-
-
-
 # ----------------Game Views-------------------- #
-class GameList(generics.ListCreateAPIView):
-    """
-    View for listing or creating Games.
-    """
+class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
 
@@ -37,14 +32,8 @@ class GameList(generics.ListCreateAPIView):
             return qs.filter(game_time__range=[start_date, end_date])
         return qs
 
-class GameDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-    View for finding, updating, or deleting a single Game instance.
-    """
-    queryset = Game.objects.all()
-    serializer_class = GameSerializer
 
-class GameOddsList(generics.ListCreateAPIView):
+class GameOddsViewSet(viewsets.ModelViewSet):
     """
     View for listing or creating Games and Odds.
     """
@@ -94,89 +83,46 @@ class GameOddsList(generics.ListCreateAPIView):
                 mkt_type=elem['mkt_type']
             )
 
-class GameOddsDetail(generics.RetrieveAPIView):
-    """
-    View for returning a single Game instance with its associated Odds data.
-    """
-    queryset = Game.objects.all()
-    serializer_class = GameOddsSerializer
-
-
 # ----------------Sport Views-------------------- #
-class SportList(generics.ListCreateAPIView):
+class SportViewSet(viewsets.ModelViewSet):
     """
     View for listing or creating Sports.
     """
     queryset = Sport.objects.all()
     serializer_class = SportSerializer
 
-class SportDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-    View for finding, updating, or deleting a single Sport instance.
-    """
-    queryset = Sport.objects.all()
-    serializer_class = SportSerializer
-
 
 # ----------------Region Views-------------------- #
-class RegionList(generics.ListCreateAPIView):
+class RegionViewSet(viewsets.ModelViewSet):
     """
     View for listing or creating Regions.
     """
     queryset = Region.objects.all()
     serializer_class = RegionSerializer
 
-
-class RegionDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-    View for finding, updating, or deleting a single Region instance.
-    """
-    queryset = Region.objects.all()
-    serializer_class = RegionSerializer
-
-
 # ----------------League Views-------------------- #
-class LeagueList(generics.ListCreateAPIView):
+class LeagueViewSet(viewsets.ModelViewSet):
     """
     View for listing or creating Leagues.
     """
     queryset = League.objects.all()
     serializer_class = LeagueSerializer
 
-class LeagueDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-    View for finding, updating, or deleting a single League instance.
-    """
-    queryset = League.objects.all()
-    serializer_class = LeagueSerializer
-
 # ----------------OddsSources Views-------------------- #
-class OddsSourceList(generics.ListCreateAPIView):
+class OddsSourceViewSets(viewsets.ModelViewSet):
     """
     View for listing or creating OddsSources.
     """
     queryset = OddsSource.objects.all()
     serializer_class = OddsSourceSerializer
 
-class OddsSourceDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-    View for finding, updating, or deleting a single OddsSource instance.
-    """
-    queryset = OddsSource.objects.all()
-    serializer_class = OddsSourceSerializer
-
 # ----------------Odds Views-------------------- #
-class OddsList(generics.ListCreateAPIView):
+class OddsViewSet(viewsets.ModelViewSet):
     """
     View for listing or creating Odds.
     """
     queryset = Odds.objects.all()
     serializer_class = OddsSerializer
+    
 
-class OddsDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-    View for finding, updating, or deleting a single Odds instance.
-    """
-    queryset = Odds.objects.all()
-    serializer_class = OddsSerializer
 

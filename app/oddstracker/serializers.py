@@ -26,6 +26,7 @@ class OddsSourceSerializer(serializers.ModelSerializer):
 
 
 class OddsSerializer(serializers.ModelSerializer):
+    source = OddsSourceSerializer(read_only=True)
 
     class Meta:
         model = Odds

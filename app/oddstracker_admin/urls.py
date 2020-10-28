@@ -20,35 +20,23 @@ from oddstracker import views
 from rest_framework.routers import SimpleRouter
 from rest_framework_nested import routers
 
-
 router = SimpleRouter()
-router.register('games', views.GameViewSet)
+router.include_format_suffixes = False
+router.register(r'games', views.GameViewSet)
 
-odds_router = routers.NestedSimpleRouter(
-    router, 
-    r'games',
-    lookup='game'
-)
-odds_router.register(
-    'odds',
-    views.OddsViewSet,
-    basename='game-odds'
-)
-
-odds_router = routers.NestedSimpleRouter(
-    router, 
-    r'games',
-    lookup='game'
-)
-
-
+gameodds_detail = views.GameOddsViewSet.as_view({
+    'get': 'retrieve'
+})
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    re_path(r'^api/games/$', views.GameViewSet.as_view(), name="games-list"),
+    path('api/games/<int:pk>/odds/', gameodds_detail, name="gameodds-detail"),
+    path('api/', include(router.urls)),
+
+    # path('admin/', admin.site.urls),
+    # re_path(r'^api/games/$', views.GameViewSet, name="games-list"),
     # path('api/games/<int:pk>', views.GameDetail.as_view(), name="games-detail"),
-    re_path(r'^api/games/<int:pk>/odds/$', views.GameOddsDetail.as_view(), name="gameodds-detail"),
+    # re_path(r'^api/games/<int:pk>/odds/$', views.GameOddsViewSet, name="gameodds-detail"),
     # path('api/sports', views.SportList.as_view(), name="sports-list"),
     # path('api/regions', views.RegionList.as_view(), name="regions-list"),
     # path('api/regions/<int:pk>', views.RegionDetail.as_view(), name="regions-detail"),

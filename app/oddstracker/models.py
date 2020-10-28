@@ -100,7 +100,7 @@ class Odds(models.Model):
     id: int = models.AutoField(primary_key=True)
     game: Game = models.ForeignKey(Game, related_name="odds", on_delete=models.CASCADE)
     time_recorded: datetime = models.DateTimeField(auto_now=False)
-    source: datetime = models.ForeignKey(OddsSource, models.CASCADE)
+    source: datetime = models.ForeignKey(OddsSource, related_name="source", on_delete=models.CASCADE)
     mkt_type: MktTypeEnum = models.CharField(choices=MktTypeEnum.choices, max_length=100)
     team_a_value: int = models.IntegerField()
     team_b_value: int = models.IntegerField()

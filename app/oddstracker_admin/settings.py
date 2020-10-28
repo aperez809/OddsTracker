@@ -59,6 +59,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://oddstracker.app",
     "http://localhost:8000",
     "http://localhost:3000",
+    "http://localhost:3001",
+
 ]
 
 ROOT_URLCONF = 'oddstracker_admin.urls'

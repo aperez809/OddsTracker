@@ -31,6 +31,7 @@ gameodds_detail = views.GameOddsViewSet.as_view({
 
 urlpatterns = [
     path('api/games/<int:pk>/odds/', gameodds_detail, name="gameodds-detail"),
+    re_path(r'^api/games/$', views.GameViewSet, name="games-list"),
     path('api/', include(router.urls)),
 
     # path('admin/', admin.site.urls),

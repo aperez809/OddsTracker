@@ -5,20 +5,20 @@ services:
     build:
       context: ./app
       dockerfile: Dockerfile.prod
-    image: 013206471204.dkr.ecr.us-east-2.amazonaws.com/oddstracker-repo:web
+    image: 013206471204.dkr.ecr.us-east-2.amazonaws.com/oddstracker-staging:web
     command: gunicorn oddstracker_admin.wsgi:application --bind 0.0.0.0:8000
     expose:
       - 8000
     env_file:
       - .env.staging
-  nginx-proxy:
-    container_name: nginx-proxy
-    build: nginx
-    image: 013206471204.dkr.ecr.us-east-2.amazonaws.com/oddstracker-repo:nginx-proxy
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    # image: 013206471204.dkr.ecr.us-east-2.amazonaws.com/oddstracker-staging:nginx
     restart: always
     ports:
       - 443:443
-      - 80:80
+      - 1337:80
     volumes:
       - certs:/etc/nginx/certs
       - html:/usr/share/nginx/html
@@ -26,17 +26,19 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - web
-  nginx-proxy-letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    env_file:
-      - .env.staging.proxy-companion
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - certs:/etc/nginx/certs
-      - html:/usr/share/nginx/html
-      - vhost:/etc/nginx/vhost.d
-    depends_on:
-      - nginx-proxy
+    # labels:
+    #   - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
+  # nginx-proxy-letsencrypt:
+  #   image: jrcs/letsencrypt-nginx-proxy-companion
+  #   env_file:
+  #     - .env.staging.proxy-companion
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     - certs:/etc/nginx/certs
+  #     - html:/usr/share/nginx/html
+  #     - vhost:/etc/nginx/vhost.d
+  #   depends_on:
+  #     - nginx-proxy
 
 volumes:
   certs:

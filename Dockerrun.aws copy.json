@@ -2,6 +2,9 @@
     "AWSEBDockerrunVersion": 2,
     "containerDefinitions": [
         {
+            "dockerLabels": {
+                "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy": null
+            },
             "essential": true,
             "image": "013206471204.dkr.ecr.us-east-2.amazonaws.com/oddstracker-staging:nginx-proxy",
             "mountPoints": [
@@ -22,7 +25,7 @@
                     "sourceVolume": "VarRunDocker_Sock"
                 }
             ],
-            "name": "nginx",
+            "name": "nginx-proxy",
             "portMappings": [
                 {
                     "containerPort": 443,
@@ -33,6 +36,35 @@
                     "hostPort": 80
                 }
             ]
+        },
+        {
+            "environment": [
+                {
+                  "name": "seconds_to_wait",
+                  "value": 2
+                }
+              ],
+            "essential": true,
+            "image": "jrcs/letsencrypt-nginx-proxy-companion",
+            "mountPoints": [
+                {
+                    "containerPath": "/var/run/docker.sock",
+                    "sourceVolume": "VarRunDocker_Sock"
+                },
+                {
+                    "containerPath": "/etc/nginx/certs",
+                    "sourceVolume": "certs"
+                },
+                {
+                    "containerPath": "/usr/share/nginx/html",
+                    "sourceVolume": "html"
+                },
+                {
+                    "containerPath": "/etc/nginx/vhost.d",
+                    "sourceVolume": "host"
+                }
+            ],
+            "name": "nginx-proxy-letsencrypt"
         },
         {
             "command": [

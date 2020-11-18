@@ -1,39 +1,5 @@
 {
-    "AWSEBDockerrunVersion": 2,
     "containerDefinitions": [
-        {
-            "essential": true,
-            "image": "013206471204.dkr.ecr.us-east-2.amazonaws.com/oddstracker-staging:nginx-proxy",
-            "mountPoints": [
-                {
-                    "containerPath": "/etc/nginx/certs",
-                    "sourceVolume": "certs"
-                },
-                {
-                    "containerPath": "/usr/share/nginx/html",
-                    "sourceVolume": "html"
-                },
-                {
-                    "containerPath": "/etc/nginx/vhost.d",
-                    "sourceVolume": "vhost"
-                },
-                {
-                    "containerPath": "/tmp/docker.sock",
-                    "sourceVolume": "VarRunDocker_Sock"
-                }
-            ],
-            "name": "nginx",
-            "portMappings": [
-                {
-                    "containerPort": 443,
-                    "hostPort": 443
-                },
-                {
-                    "containerPort": 80,
-                    "hostPort": 80
-                }
-            ]
-        },
         {
             "command": [
                 "gunicorn",
@@ -44,6 +10,39 @@
             "essential": true,
             "image": "013206471204.dkr.ecr.us-east-2.amazonaws.com/oddstracker-staging:web",
             "name": "web"
+        },
+        {
+            "essential": true,
+            "image": "013206471204.dkr.ecr.us-east-2.amazonaws.com/oddstracker-staging:nginx-proxy",
+            "mountPoints": [
+                {
+                    "containerPath": "/etc/nginx/certs",
+                    "sourceVolume": "Certs"
+                },
+                {
+                    "containerPath": "/usr/share/nginx/html",
+                    "sourceVolume": "Html"
+                },
+                {
+                    "containerPath": "/etc/nginx/vhost.d",
+                    "sourceVolume": "Vhost"
+                },
+                {
+                    "containerPath": "/tmp/docker.sock",
+                    "sourceVolume": "VarRunDocker_Sock"
+                }
+            ],
+            "name": "nginx-proxy",
+            "portMappings": [
+                {
+                    "containerPort": 443,
+                    "hostPort": 443
+                },
+                {
+                    "containerPort": 80,
+                    "hostPort": 80
+                }
+            ]
         }
     ],
     "family": "",
@@ -52,25 +51,42 @@
             "host": {
                 "sourcePath": "certs"
             },
-            "name": "Certs"
+            "name": "Certs",
+            "dockerVolumeConfiguration": {
+                "scope": "task",
+                "autoprovision": true
+            }
         },
         {
             "host": {
                 "sourcePath": "html"
             },
-            "name": "Html"
+            "name": "Html",
+            "dockerVolumeConfiguration": {
+                "scope": "task",
+                "autoprovision": true
+            }
         },
         {
             "host": {
                 "sourcePath": "vhost"
             },
-            "name": "Vhost"
+            "name": "Vhost",
+            "dockerVolumeConfiguration": {
+                "scope": "task",
+                "autoprovision": true
+            }
         },
         {
             "host": {
                 "sourcePath": "/var/run/docker.sock"
             },
-            "name": "VarRunDocker_Sock"
+            "name": "VarRunDocker_Sock",
+            "dockerVolumeConfiguration": {
+                "scope": "task",
+                "autoprovision": true
+            }
         }
+
     ]
 }

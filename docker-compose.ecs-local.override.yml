@@ -1,0 +1,11 @@
+version: "3.4"
+services:
+  nginx-proxy:
+    logging:
+      driver: json-file
+  nginx-proxy-letsencrypt:
+    logging:
+      driver: json-file
+  web:
+    logging:
+      driver: json-file

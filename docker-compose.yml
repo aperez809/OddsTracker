@@ -23,6 +23,7 @@ services:
     restart: always
     ports:
       - 443:443
-      - 1337:80
+      - 8000:80
+      - 80:8000
     depends_on:
       - web

@@ -28,10 +28,21 @@ gameodds_detail = views.GameOddsViewSet.as_view({
     'get': 'retrieve'
 })
 
+gameodds_list = views.GameOddsViewSet.as_view({
+    'post': 'create'
+})
+
+games_list = views.GameViewSet.as_view({
+    'get': 'list'
+})
+
+
 
 urlpatterns = [
     path('api/games/<int:pk>/odds/', gameodds_detail, name="gameodds-detail"),
+    path('api/game-odds/', gameodds_list, name="gameodds-list"),
     path('api/', include(router.urls)),
+    path('api/games/', games_list, name="game-list")
 
     # path('admin/', admin.site.urls),
     # re_path(r'^api/games/$', views.GameViewSet, name="games-list"),
